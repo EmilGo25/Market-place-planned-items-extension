@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buying Board</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header class="popup-header">
+      <h1>🛒 Buying Board</h1>
+      <p class="subtitle">Manage your Amazon shopping list</p>
+    </header>
+
+    <div class="add-item-section">
+      <h2>Add New Item</h2>
+      <div class="form-group">
+        <input type="text" id="item-name" placeholder="Item name" required>
+      </div>
+      <div class="form-group">
+        <input type="text" id="item-price" placeholder="Price (optional)">
+      </div>
+      <div class="form-group">
+        <input type="url" id="item-url" placeholder="Amazon URL (optional)">
+      </div>
+      <button id="add-item-btn" class="btn btn-primary">Add Item</button>
+    </div>
+
+    <div class="items-section">
+      <h2>Your List (<span id="item-count">0</span>)</h2>
+      <div id="items-list" class="items-list">
+        <!-- Items will be loaded here -->
+      </div>
+    </div>
+
+    <div class="popup-footer">
+      <button id="clear-all-btn" class="btn btn-secondary">Clear All</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+
