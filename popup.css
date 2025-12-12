@@ -193,5 +193,73 @@ body {
   background: #f9f9f9;
   border-top: 1px solid #e0e0e0;
   text-align: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.settings-section {
+  padding: 20px;
+  background: white;
+}
+
+.settings-section h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.settings-description {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.whitelist-sites {
+  max-height: 350px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  background: #f9f9f9;
+}
+
+.whitelist-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s;
+}
+
+.whitelist-item:hover {
+  border-color: #667eea;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.whitelist-item:last-child {
+  margin-bottom: 0;
+}
+
+.site-icon {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.site-name {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.error {
+  color: #f44336;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
 }
 

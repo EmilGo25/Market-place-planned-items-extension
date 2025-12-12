@@ -6,9 +6,16 @@ const addItemBtn = document.getElementById('add-item-btn');
 const itemsList = document.getElementById('items-list');
 const itemCount = document.getElementById('item-count');
 const clearAllBtn = document.getElementById('clear-all-btn');
+const toggleSettingsBtn = document.getElementById('toggle-settings-btn');
+const closeSettingsBtn = document.getElementById('close-settings-btn');
+const settingsSection = document.getElementById('settings-section');
+const whitelistSites = document.getElementById('whitelist-sites');
 
 // Load items on popup open
 loadItems();
+
+// Load whitelist sites
+loadWhitelistSites();
 
 // Add item
 addItemBtn.addEventListener('click', () => {
@@ -128,5 +135,45 @@ function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+// Toggle settings view
+toggleSettingsBtn.addEventListener('click', () => {
+  const mainContent = document.querySelectorAll('.add-item-section, .items-section, .popup-footer');
+  const isSettingsVisible = settingsSection.style.display !== 'none';
+  
+  if (isSettingsVisible) {
+    settingsSection.style.display = 'none';
+    mainContent.forEach(el => el.style.display = 'block');
+  } else {
+    settingsSection.style.display = 'block';
+    mainContent.forEach(el => el.style.display = 'none');
+  }
+});
+
+closeSettingsBtn.addEventListener('click', () => {
+  settingsSection.style.display = 'none';
+  const mainContent = document.querySelectorAll('.add-item-section, .items-section, .popup-footer');
+  mainContent.forEach(el => el.style.display = 'block');
+});
+
+// Load and display whitelisted sites
+function loadWhitelistSites() {
+  if (typeof WHITE_SITES === 'undefined') {
+    whitelistSites.innerHTML = '<div class="error">Could not load whitelist configuration</div>';
+    return;
+  }
+
+  const uniqueDomains = [...new Set(WHITE_SITES.map(site => {
+    // Remove www. prefix for display
+    return site.replace(/^www\./, '');
+  }))];
+
+  whitelistSites.innerHTML = uniqueDomains.map(site => `
+    <div class="whitelist-item">
+      <span class="site-icon">🌐</span>
+      <span class="site-name">${escapeHtml(site)}</span>
+    </div>
+  `).join('');
 }
 

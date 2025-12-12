@@ -36,9 +36,20 @@
 
     <div class="popup-footer">
       <button id="clear-all-btn" class="btn btn-secondary">Clear All</button>
+      <button id="toggle-settings-btn" class="btn btn-secondary">⚙️ Settings</button>
+    </div>
+
+    <div id="settings-section" class="settings-section" style="display: none;">
+      <h2>Whitelisted Sites</h2>
+      <p class="settings-description">The extension is active on these domains:</p>
+      <div id="whitelist-sites" class="whitelist-sites">
+        <!-- Sites will be loaded here -->
+      </div>
+      <button id="close-settings-btn" class="btn btn-secondary">Close Settings</button>
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

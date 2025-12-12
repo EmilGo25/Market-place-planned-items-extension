@@ -1,5 +1,11 @@
 // Create the buying board sidebar
 function createBuyingBoard() {
+  // Check if current site is whitelisted
+  if (!isWhitelisted()) {
+    console.log('Buying Board: Site not whitelisted');
+    return;
+  }
+
   // Check if board already exists
   if (document.getElementById('buying-board-extension')) {
     return;
