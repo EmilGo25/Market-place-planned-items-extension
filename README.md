@@ -12,6 +12,8 @@ A Chrome extension that displays your planned buying list when you visit shoppin
 - 💾 Items are saved locally in your browser
 - 🎨 Modern, clean UI
 - ⚙️ Settings panel to view whitelisted sites
+- 📍 Remembers sidebar position - drag it anywhere and it stays there
+- 🔄 Remembers collapsed/expanded state across page loads
 
 ## Installation
 

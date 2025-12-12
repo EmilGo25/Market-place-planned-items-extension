@@ -63,6 +63,9 @@ function createBuyingBoard() {
   // Load and display items
   loadItems();
 
+  // Load saved collapsed state
+  loadCollapsedState();
+
   // Toggle collapse/expand
   const toggleBtn = document.getElementById('buying-board-toggle');
   toggleBtn.addEventListener('click', () => {
@@ -87,6 +90,8 @@ function createBuyingBoard() {
       headerEl.style.display = 'flex';
       collapsedEl.style.display = 'none';
       toggleBtn.textContent = '−';
+      // Save expanded state
+      chrome.storage.local.set({ boardCollapsed: false });
     } else {
       // Collapse
       board.classList.add('collapsed');
@@ -94,7 +99,28 @@ function createBuyingBoard() {
       headerEl.style.display = 'none';
       collapsedEl.style.display = 'flex';
       toggleBtn.textContent = '+';
+      // Save collapsed state
+      chrome.storage.local.set({ boardCollapsed: true });
     }
+  }
+
+  function loadCollapsedState() {
+    chrome.storage.local.get(['boardCollapsed'], (result) => {
+      const isCollapsed = result.boardCollapsed || false;
+      
+      if (isCollapsed) {
+        // Apply collapsed state
+        const content = document.getElementById('buying-board-content');
+        const headerEl = document.querySelector('.buying-board-header');
+        const collapsedEl = document.getElementById('buying-board-collapsed');
+        
+        board.classList.add('collapsed');
+        content.style.display = 'none';
+        headerEl.style.display = 'none';
+        collapsedEl.style.display = 'flex';
+        toggleBtn.textContent = '+';
+      }
+    });
   }
 
   // Add item from sidebar
@@ -155,6 +181,15 @@ function makeDraggable(element, handle, collapsedHandle) {
   handle.style.cursor = 'move';
   collapsedHandle.style.cursor = 'move';
 
+  // Load saved position
+  chrome.storage.local.get(['boardPosition'], (result) => {
+    if (result.boardPosition) {
+      xOffset = result.boardPosition.x;
+      yOffset = result.boardPosition.y;
+      setTranslate(xOffset, yOffset, element);
+    }
+  });
+
   handle.addEventListener('mousedown', dragStart);
   collapsedHandle.addEventListener('mousedown', dragStartCollapsed);
   document.addEventListener('mousemove', drag);
@@ -201,6 +236,13 @@ function makeDraggable(element, handle, collapsedHandle) {
     initialY = currentY;
     isDragging = false;
     document.body.classList.remove('buying-board-dragging');
+    
+    // Save position to storage
+    if (xOffset !== 0 || yOffset !== 0) {
+      chrome.storage.local.set({ 
+        boardPosition: { x: xOffset, y: yOffset } 
+      });
+    }
   }
 
   function setTranslate(xPos, yPos, el) {
